@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IEPRECITY Online Ministry School - Kenya</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-tab {
+            padding: 1rem 2rem;
+            background: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .nav-tab:hover {
+            background: #3b82f6;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .nav-tab.active {
+            background: #1e3a8a;
+            color: white;
+        }
+
+        .section {
+            display: none;
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-radius: 8px;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .feature-card h3 {
+            color: #1e3a8a;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #1e3a8a;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+
+        .btn {
+            background: #1e3a8a;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .btn:hover {
+            background: #3b82f6;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .schedule-table th,
+        .schedule-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .schedule-table th {
+            background: #1e3a8a;
+            color: white;
+        }
+
+        .schedule-table tr:hover {
+            background: #f0f9ff;
+        }
+
+        .pricing-box {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .pricing-box h2 {
+            font-size: 3rem;
+            margin: 1rem 0;
+        }
+
+        .payment-info {
+            background: #f0f9ff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+        }
+
+        .alert-success {
+            background: #d1fae5;
+            color: #065f46;
+            border-left: 4px solid #10b981;
+        }
+
+        .whatsapp-button {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #25d366;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .whatsapp-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px rgba(37, 211, 102, 0.6);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .nav-tabs {
+                flex-direction: column;
+            }
+            
+            .nav-tab {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📚 IEPRECITY Online Ministry School</h1>
+        <p>Biblical Training for Pastors & Christian Leaders - Fully Online via Google Meet</p>
+        <p style="margin-top: 1rem; font-size: 1rem;">Contact: Samuel Maloba | 📧 ieprecity@gmail.com | 📱 0710494999</p>
+    </div>
+
+    <div class="container">
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showSection('home')">Home</button>
+            <button class="nav-tab" onclick="showSection('about')">About Program</button>
+            <button class="nav-tab" onclick="showSection('schedule')">Class Schedule</button>
+            <button class="nav-tab" onclick="showSection('apply')">Apply Now</button>
+            <button class="nav-tab" onclick="showSection('payment')">Payment Info</button>
+        </div>
+
+        <!-- HOME SECTION -->
+        <div id="home" class="section active">
+            <h2>Welcome to Online Ministry Training</h2>
+            <p style="font-size: 1.1rem; margin: 1rem 0;">Join our fully online International Extension Program (IEP) and earn recognized degrees in Biblical Studies and Ministry from IEPRECITY.</p>
+
+            <div class="pricing-box">
+                <h3>Program Fees</h3>
+                <div style="margin: 1.5rem 0;">
+                    <p style="font-size: 1.2rem; margin-bottom: 0.5rem;">One-Time Registration Fee</p>
+                    <h2 style="font-size: 2.5rem; margin: 0.5rem 0;">KSh 500</h2>
+                    <p style="font-size: 0.9rem; opacity: 0.9;">Payable once upon enrollment</p>
+                </div>
+                <div style="border-top: 2px solid rgba(255,255,255,0.3); padding-top: 1.5rem; margin-top: 1.5rem;">
+                    <p style="font-size: 1.2rem; margin-bottom: 0.5rem;">Monthly Tuition Fee</p>
+                    <h2>KSh 1,000</h2>
+                    <p>Due on or before the 5th of each month</p>
+                </div>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>🎓 Accredited Degrees</h3>
+                    <p>Earn Associate, Bachelor's, and Master's degrees recognized by IEPRECITY (powered by N2NCU, Texas USA)</p>
+                </div>
+                <div class="feature-card">
+                    <h3>💻 100% Online</h3>
+                    <p>Attend live classes via Google Meet from anywhere in Kenya or beyond</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📅 Flexible Schedule</h3>
+                    <p>Classes designed for working pastors and ministry leaders</p>
+                </div>
+                <div class="feature-card">
+                    <h3>👥 Live Facilitation</h3>
+                    <p>Interactive sessions with discussion, Q&A, and community support</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📖 Complete Curriculum</h3>
+                    <p>Bible studies, theology, ministry skills, leadership, and counseling</p>
+                </div>
+                <div class="feature-card">
+                    <h3>✅ Digital Materials</h3>
+                    <p>Access to video lectures, student notes, and course materials</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ABOUT SECTION -->
+        <div id="about" class="section">
+            <h2>About the Program</h2>
+            
+            <h3 style="margin-top: 2rem;">Available Degrees</h3>
+            <ul style="margin: 1rem 0; line-height: 2;">
+                <li><strong>Associate of Biblical Studies and Ministry</strong> - 6 Semesters (2 years)</li>
+                <li><strong>Bachelor of Ministry</strong> - 12 Semesters (4 years)</li>
+                <li><strong>Master of Christian Leadership</strong> - 5-6 Semesters</li>
+            </ul>
+
+            <h3 style="margin-top: 2rem;">Course Categories</h3>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h4>Bible Studies</h4>
+                    <p>Old & New Testament Survey, Gospels, Acts, Romans, Hebrews, Revelation, and more</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Theology</h4>
+                    <p>Systematic Theology, Church History, Biblical Ethics, Hermeneutics</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Ministry Skills</h4>
+                    <p>Evangelism, Church Planting, Youth Ministry, Children's Ministry, Worship</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Leadership</h4>
+                    <p>Empowered Leadership, Visionary Leadership, Church Administration</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Counseling</h4>
+                    <p>Biblical Counseling, Marriage & Family, Crisis Response, Grief Counseling</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Community Development</h4>
+                    <p>Holistic Ministry, Community Outreach, Strategic Savings Groups</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2rem;">How It Works</h3>
+            <ol style="margin: 1rem 0; line-height: 2; font-size: 1.1rem;">
+                <li>Complete the application form and pay the monthly fee</li>
+                <li>Receive Google Meet link and class materials</li>
+                <li>Attend live online sessions (3-4 hours per week)</li>
+                <li>Complete homework, quizzes, and exams</li>
+                <li>Participate in practical ministry activities</li>
+                <li>Graduate and transfer credits to IEPRECITY for your degree</li>
+            </ol>
+        </div>
+
+        <!-- SCHEDULE SECTION -->
+        <div id="schedule" class="section">
+            <h2>Class Schedule - Semester 1</h2>
+            <p style="margin: 1rem 0;">Classes meet once per week via Google Meet. Each session is 3-4 hours including breaks.</p>
+
+            <table class="schedule-table">
+                <thead>
+                    <tr>
+                        <th>Week</th>
+                        <th>Date</th>
+                        <th>Courses (Sessions)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Week 1</td>
+                        <td>Jan 11, 2025</td>
+                        <td>
+                            • Reaching Your Destiny (Session 1)<br>
+                            • New Testament Survey (Session 1)<br>
+                            • Foundations of Evangelism (Session 1)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Week 2</td>
+                        <td>Jan 18, 2025</td>
+                        <td>
+                            • Reaching Your Destiny (Session 2)<br>
+                            • New Testament Survey (Session 2)<br>
+                            • Foundations of Evangelism (Session 2)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Week 3</td>
+                        <td>Jan 25, 2025</td>
+                        <td>
+                            • Reaching Your Destiny (Session 3)<br>
+                            • New Testament Survey (Session 3)<br>
+                            • Foundations of Evangelism (Session 3)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Week 4</td>
+                        <td>Feb 1, 2025</td>
+                        <td>
+                            • Reaching Your Destiny (Session 4)<br>
+                            • New Testament Survey (Session 4)<br>
+                            • Foundations of Evangelism (Session 4)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Week 5</td>
+                        <td>Feb 8, 2025</td>
+                        <td>
+                            • Reaching Your Destiny (Session 5)<br>
+                            • New Testament Survey (Session 5)<br>
+                            • Midterm Exam Review
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Week 6</td>
+                        <td>Feb 15, 2025</td>
+                        <td>
+                            <strong>MIDTERM EXAMS</strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: center; background: #f0f9ff;">
+                            <em>Weeks 7-12 continue with Theology I, remaining sessions, and Final Exams</em>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div style="margin-top: 2rem; padding: 1rem; background: #fff7ed; border-left: 4px solid #f59e0b; border-radius: 6px;">
+                <h4>⏰ Class Time Options:</h4>
+                <p>Choose your preferred time when you apply:</p>
+                <ul>
+                    <li>Saturday Morning: 9:00 AM - 12:00 PM</li>
+                    <li>Saturday Afternoon: 2:00 PM - 5:00 PM</li>
+                    <li>Sunday After Church: 2:00 PM - 5:00 PM</li>
+                    <li>Weekday Evening: 6:00 PM - 9:00 PM</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- APPLICATION SECTION -->
+        <div id="apply" class="section">
+            <h2>Application Form</h2>
+            <p style="margin-bottom: 2rem;">Complete this form to join the next semester. All fields are required.</p>
+
+            <form id="applicationForm">
+                <div class="form-group">
+                    <label>Full Name (as it should appear on your degree)*</label>
+                    <input type="text" id="fullName" required placeholder="Enter your complete name">
+                </div>
+
+                <div class="form-group">
+                    <label>Gender*</label>
+                    <select id="gender" required>
+                        <option value="">Select...</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Date of Birth*</label>
+                    <input type="date" id="dob" required>
+                </div>
+
+                <div class="form-group">
+                    <label>National ID Number*</label>
+                    <input type="text" id="nationalId" required placeholder="Enter your national ID number">
+                </div>
+
+                <div class="form-group">
+                    <label>Phone Number (Primary)*</label>
+                    <input type="tel" id="phone" required placeholder="e.g., 0712345678">
+                </div>
+
+                <div class="form-group">
+                    <label>WhatsApp Number*</label>
+                    <input type="tel" id="whatsapp" required placeholder="e.g., 0712345678">
+                </div>
+
+                <div class="form-group">
+                    <label>Email Address*</label>
+                    <input type="email" id="email" required placeholder="your.email@example.com">
+                </div>
+
+                <div class="form-group">
+                    <label>County*</label>
+                    <input type="text" id="county" required placeholder="e.g., Nairobi">
+                </div>
+
+                <div class="form-group">
+                    <label>Town/City*</label>
+                    <input type="text" id="city" required placeholder="Your town or city">
+                </div>
+
+                <div class="form-group">
+                    <label>Ministry Position*</label>
+                    <select id="position" required>
+                        <option value="">Select your position...</option>
+                        <option value="Pastor">Pastor</option>
+                        <option value="Assistant Pastor">Assistant Pastor</option>
+                        <option value="Bishop">Bishop</option>
+                        <option value="Evangelist">Evangelist</option>
+                        <option value="Elder">Elder</option>
+                        <option value="Youth Minister">Youth Minister</option>
+                        <option value="Children's Minister">Children's Minister</option>
+                        <option value="Worship Leader">Worship Leader</option>
+                        <option value="Teacher">Teacher</option>
+                        <option value="Not yet active in ministry">Not yet active in ministry</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Church Name*</label>
+                    <input type="text" id="churchName" required placeholder="Name of your church">
+                </div>
+
+                <div class="form-group">
+                    <label>Years in Ministry*</label>
+                    <input type="number" id="yearsMinistry" required min="0" placeholder="e.g., 5">
+                </div>
+
+                <div class="form-group">
+                    <label>If Pastor: Congregation Size</label>
+                    <input type="number" id="congSize" min="0" placeholder="Approximate number of members">
+                </div>
+
+                <div class="form-group">
+                    <label>Degree Program Applying For*</label>
+                    <select id="degree" required>
+                        <option value="">Select program...</option>
+                        <option value="Associate">Associate of Biblical Studies and Ministry (2 years)</option>
+                        <option value="Bachelor">Bachelor of Ministry (4 years)</option>
+                        <option value="Master">Master of Christian Leadership (2 years)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Preferred Class Time*</label>
+                    <select id="classTime" required>
+                        <option value="">Select time...</option>
+                        <option value="Saturday Morning">Saturday Morning (9:00 AM - 12:00 PM)</option>
+                        <option value="Saturday Afternoon">Saturday Afternoon (2:00 PM - 5:00 PM)</option>
+                        <option value="Sunday Afternoon">Sunday After Church (2:00 PM - 5:00 PM)</option>
+                        <option value="Weekday Evening">Weekday Evening (6:00 PM - 9:00 PM)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Why do you want to join this program?*</label>
+                    <textarea id="motivation" required rows="4" placeholder="Share your motivation and goals..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="agreement" required>
+                        I confirm that all information provided is accurate and I agree to the program requirements including payment of KSh 500 registration fee (one-time) and KSh 1,000 monthly tuition, attendance, homework, and exams.
+                    </label>
+                </div>
+
+                <button type="submit" class="btn">Submit Application</button>
+            </form>
+
+            <div id="successMessage" class="alert alert-success" style="display: none; margin-top: 2rem;">
+                <strong>✅ Application Submitted Successfully!</strong><br>
+                Thank you for applying. You will receive payment instructions via WhatsApp and email within 24 hours.
+            </div>
+        </div>
+
+        <!-- PAYMENT SECTION -->
+        <div id="payment" class="section">
+            <h2>Payment Information</h2>
+            
+            <div class="pricing-box">
+                <h3>Monthly Tuition Fee</h3>
+                <h2>KSh 1,000</h2>
+                <p>Due on or before the 5th of each month</p>
+            </div>
+
+            <div class="payment-info">
+                <h3>Payment Methods</h3>
+                <p style="font-size: 1.2rem; font-weight: 600; color: #1e3a8a; margin-bottom: 1rem;">M-PESA PAYBILL:</p>
+                <p style="font-size: 1.5rem; font-weight: bold; color: #059669;">Business Number: 247247</p>
+                <p style="font-size: 1.5rem; font-weight: bold; color: #059669; margin-bottom: 1.5rem;">Account Number: 610199</p>
+                
+                <div style="background: white; padding: 1rem; border-radius: 6px; margin-top: 1rem;">
+                    <h4>How to Pay via M-PESA:</h4>
+                    <ol style="line-height: 2;">
+                        <li>Go to M-PESA menu on your phone</li>
+                        <li>Select "Lipa na M-PESA"</li>
+                        <li>Select "Paybill"</li>
+                        <li>Enter Business Number: <strong>247247</strong></li>
+                        <li>Enter Account Number: <strong>610199</strong></li>
+                        <li>Enter Amount: <strong>KSh 500</strong> (Registration) or <strong>KSh 1,000</strong> (Monthly)</li>
+                        <li>Enter your M-PESA PIN</li>
+                        <li>Confirm payment</li>
+                    </ol>
+                    <p style="background: #fef3c7; padding: 0.75rem; border-radius: 6px; margin-top: 1rem;">
+                        <strong>⚠️ Important:</strong> New students must pay the <strong>registration fee (KSh 500)</strong> before the first class, then the <strong>monthly fee (KSh 1,000)</strong> by the 5th of each month.
+                    </p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2rem;">What Your Fee Covers:</h3>
+            <p style="font-weight: 600; color: #1e3a8a; margin-bottom: 0.5rem;">Registration Fee (KSh 500) includes:</p>
+            <ul style="line-height: 2; margin: 0 0 1.5rem 1.5rem;">
+                <li>✅ Student enrollment and official registration</li>
+                <li>✅ Access to the student portal</li>
+                <li>✅ Complete digital welcome package</li>
+                <li>✅ First semester materials</li>
+            </ul>
+
+            <p style="font-weight: 600; color: #1e3a8a; margin-bottom: 0.5rem;">Monthly Tuition (KSh 1,000) includes:</p>
+            <ul style="line-height: 2; margin: 0 0 0 1.5rem;">
+                <li>✅ Access to all live Google Meet classes</li>
+                <li>✅ Digital course materials and student notes</li>
+                <li>✅ Video lectures and recorded sessions</li>
+                <li>✅ Homework assignments and quizzes</li>
+                <li>✅ Midterm and final exams</li>
+                <li>✅ Facilitator support and guidance</li>
+                <li>✅ Community of fellow students</li>
+            </ul>
+
+            <div style="background: #fff7ed; padding: 1.5rem; border-radius: 8px; margin-top: 2rem; border-left: 4px solid #f59e0b;">
+                <h4>💡 Additional Costs:</h4>
+                <p>Upon graduation, students will need to pay IEPRECITY fees for:</p>
+                <ul>
+                    <li>Credit transfer to IEPRECITY (one-time fee)</li>
+                    <li>Degree certificate and transcript</li>
+                    <li>Shipping from USA (if applicable)</li>
+                </ul>
+                <p style="margin-top: 1rem;"><em>These fees will be communicated well in advance of graduation.</em></p>
+            </div>
+
+            <h3 style="margin-top: 2rem;">Payment Confirmation</h3>
+            <p>After making payment, send your M-PESA confirmation message via:</p>
+            <ul style="margin: 1rem 0;">
+                <li>📱 WhatsApp: <strong>0710494999</strong> (Samuel Maloba)</li>
+                <li>📧 Email: <strong>ieprecity@gmail.com</strong></li>
+            </ul>
+            <p style="background: #f0f9ff; padding: 1rem; border-radius: 6px; margin-top: 1rem;">
+                Please include your full name and phone number in your payment confirmation message.
+            </p>
+        </div>
+    </div>
+
+    <a href="https://wa.me/254710494999?text=Hello%20Samuel,%20I'm%20interested%20in%20the%20IEPRECITY%20Online%20Ministry%20School" class="whatsapp-button">
+        💬 Contact on WhatsApp
+    </a>
+
+    <script>
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.section');
+            const tabs = document.querySelectorAll('.nav-tab');
+            
+            sections.forEach(section => section.classList.remove('active'));
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            document.getElementById(sectionId).classList.add('active');
+            event.target.classList.add('active');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.getElementById('applicationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                fullName: document.getElementById('fullName').value,
+                gender: document.getElementById('gender').value,
+                dob: document.getElementById('dob').value,
+                nationalId: document.getElementById('nationalId').value,
+                phone: document.getElementById('phone').value,
+                whatsapp: document.getElementById('whatsapp').value,
+                email: document.getElementById('email').value,
+                county: document.getElementById('county').value,
+                city: document.getElementById('city').value,
+                position: document.getElementById('position').value,
+                churchName: document.getElementById('churchName').value,
+                yearsMinistry: document.getElementById('yearsMinistry').value,
+                congSize: document.getElementById('congSize').value,
+                degree: document.getElementById('degree').value,
+                classTime: document.getElementById('classTime').value,
+                motivation: document.getElementById('motivation').value
+            };
+            
+            console.log('Application submitted:', formData);
+            
+            const whatsappMsg = encodeURIComponent(
+                `NEW APPLICATION - IEPRECITY\n\nName: ${formData.fullName}\nPhone: ${formData.phone}\nEmail: ${formData.email}\nProgram: ${formData.degree}\nClass Time: ${formData.classTime}\n\nPlease send payment instructions for the KSh 500 registration fee.`
+            );
+            
+            window.open(`https://wa.me/254710494999?text=${whatsappMsg}`, '_blank');
+            
+            document.getElementById('successMessage').style.display = 'block';
+            document.getElementById('applicationForm').reset();
+            
+            setTimeout(() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 500);
+        });
+    </script>
+</body>
+</html>
